@@ -13,11 +13,12 @@ import System.Exit
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
+import XMonad.Hooks.SetWMName
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal      = "xterm"
+myTerminal      = "xfce4-terminal"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -47,7 +48,7 @@ myModMask       = mod4Mask
 --
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces    = ["web","code","chat","4","5","6","7","8","9"]
 
 -- Border colors for unfocused and focused windows, respectively.
 --
@@ -62,8 +63,23 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch a terminal
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
+    -- launch intellij
+    , ((modm .|. shiftMask, xK_i     ), spawn "idea.sh")
+
+    -- launch firefox
+    , ((modm,               xK_f     ), spawn "firefox")
+    
+    -- launch sublime
+    , ((modm, 		    xK_s     ), spawn "sublime")
+
     -- launch dmenu
     , ((modm,               xK_p     ), spawn "dmenu_run")
+
+    -- launch telegram
+    , ((modm, 		    xK_g     ), spawn "telegram")
+
+    -- launch irssi
+    , ((modm, 		    xK_s     ), spawn "irssi")
 
     -- launch gmrun
     , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
@@ -243,7 +259,7 @@ myLogHook = return ()
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
-myStartupHook = return ()
+myStartupHook = setWMName "LG3D"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
